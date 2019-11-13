@@ -11,7 +11,6 @@ public class Bike {
     private String status;
     
     public Bike(LocalDate age, BikeType type, HashSet<DateRange> availability, String status) {
-        super();
         this.age = age;
         this.type = type;
         this.availability = availability;
