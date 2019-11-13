@@ -7,13 +7,11 @@ public class DoubleDecliningBalanceDepreciation implements ValuationPolicy  {
     
     private BigDecimal depreciationRate;
     private BigDecimal replacementValue;
-    private long age;
     
     public DoubleDecliningBalanceDepreciation
-    (BigDecimal replacementValue, BigDecimal depreciationRate, long age) {
+    (BigDecimal replacementValue, BigDecimal depreciationRate) {
         this.depreciationRate = depreciationRate;
         this.replacementValue = replacementValue;
-        this.age = age;
     }
 
     public void setDepreciationRate(BigDecimal depreciationRate) {
@@ -26,9 +24,10 @@ public class DoubleDecliningBalanceDepreciation implements ValuationPolicy  {
     }
 
     public BigDecimal calculateValue(Bike bike, LocalDate date) {
-        
-        return (replacementValue (new BigDecimal("1").subtract
-                (new BigDecimal(age.toString())depreciationRate))
+        BigDecimal age = new BigDecimal (new DateRange(bike.getAge(),date).toYears());
+        return 
+        replacementValue.multiply(BigDecimal.ONE.subtract
+        (age.subtract(BigDecimal.ONE).multiply(depreciationRate)).pow(age.intValue()));
         
     };
 }
