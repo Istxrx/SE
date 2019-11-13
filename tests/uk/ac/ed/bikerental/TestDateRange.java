@@ -34,15 +34,12 @@ class TestDateRange {
 
     @Test
     void testOverlapsTrue() {
-        // TODO: check we can see when two date ranges overlap
-        //fail();
-        //kokot
+        assertTrue(this.dateRange1.overlaps(this.dateRange2));
     }
 
     @Test
     void testOverlapsFalse() {
-        // TODO: check we can see when two date ranges  don't overlap
-        //fail();
+        assertFalse(this.dateRange1.overlaps(this.dateRange3));
     }
 
     // TODO: put some of your own unit tests here
