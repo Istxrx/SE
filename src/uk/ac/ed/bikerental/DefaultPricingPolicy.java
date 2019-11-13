@@ -21,7 +21,7 @@ public class DefaultPricingPolicy implements PricingPolicy{
         for (Bike bike : bikes) {
             BikeType type = bike.getType(); 
             BigDecimal dailyPrice = pricingList.get(type);
-            totalPrice.add(dailyPrice.multiply(numberOfDays));
+            totalPrice = totalPrice.add(dailyPrice.multiply(numberOfDays));
             
         }
         return totalPrice;
