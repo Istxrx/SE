@@ -22,6 +22,4 @@ public class Bike {
         assert this.type != null;
         return this.type;
     }
-    
-    
 }
