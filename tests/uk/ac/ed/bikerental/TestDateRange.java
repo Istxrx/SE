@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class TestDateRange {
-    private DateRange dateRange1, dateRange2, dateRange3;
+    private DateRange dateRange1, dateRange2, dateRange3, dateRange4;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -19,6 +19,9 @@ class TestDateRange {
                 LocalDate.of(2019, 1, 23));
         this.dateRange3 = new DateRange(LocalDate.of(2015, 1, 7),
                 LocalDate.of(2018, 1, 10));
+        this.dateRange4 = new DateRange(LocalDate.of(2016, 1, 7),
+                LocalDate.of(2017, 1, 10));
+        
     }
 
     // Sample JUnit tests checking toYears works
@@ -36,11 +39,35 @@ class TestDateRange {
     void testOverlapsTrue() {
         assertTrue(this.dateRange1.overlaps(this.dateRange2));
     }
+    
+    @Test
+    void testOverlapsTrue2() {
+        assertTrue(this.dateRange1.overlaps(this.dateRange2));
+    }
+    
+    @Test
+    void testOverlapsTrue3() {
+        assertTrue(this.dateRange3.overlaps(this.dateRange4));
+    }
+    
+    @Test
+    void testOverlapsTrue4() {
+        assertTrue(this.dateRange4.overlaps(this.dateRange3));
+    }
 
     @Test
     void testOverlapsFalse() {
         assertFalse(this.dateRange1.overlaps(this.dateRange3));
     }
 
-    // TODO: put some of your own unit tests here
+    @Test
+    void testOverlapsFalse2() {
+        assertTrue(this.dateRange3.overlaps(this.dateRange1));
+    }
+    
+    @Test
+    void testOverlapsFalse3() {
+        assertTrue(this.dateRange4.overlaps(this.dateRange1));
+    }
+    
 }
