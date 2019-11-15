@@ -17,12 +17,12 @@ public class ValuationPolicyTests {
         // Put setup here
         b1 = new Bike(
                 LocalDate.of(2016, 1, 7), 
-                new BikeType(new BigDecimal("900")), 
+                new BikeType(new BigDecimal("900"),"ebike"), 
                 null, 
                 "shop");
         b2 = new Bike(
                 LocalDate.of(2018, 1, 7), 
-                new BikeType(new BigDecimal("100")), 
+                new BikeType(new BigDecimal("100"),"mountain"), 
                 null, 
                 "shop");
         DVP = new DefaultValuationPolicy(new BigDecimal("0.1"));

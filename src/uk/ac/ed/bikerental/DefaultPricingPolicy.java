@@ -6,7 +6,7 @@ import java.util.Hashtable;
 
 public class DefaultPricingPolicy implements PricingPolicy{
     
-    private Hashtable<BikeType,BigDecimal> pricingList;
+    private Hashtable<BikeType,BigDecimal> pricingList = new Hashtable<>();
 
     @Override
     public void setDailyRentalPrice(BikeType bikeType, BigDecimal dailyPrice) {

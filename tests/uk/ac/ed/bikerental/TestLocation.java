@@ -35,6 +35,4 @@ class TestLocation {
         assertFalse(location2.isNearTo(location4));
     }
     
-    // TODO: put some tests here
-    
 }

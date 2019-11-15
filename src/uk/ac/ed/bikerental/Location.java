@@ -11,7 +11,7 @@ public class Location {
     }
     
     public boolean isNearTo(Location other) {
-        // TODO: Implement Location.isNearTo
+       
        if (postcode.charAt(0)!=other.getPostcode().charAt(0)) {
            return false;
        }
