@@ -12,7 +12,14 @@ public class Location {
     
     public boolean isNearTo(Location other) {
         // TODO: Implement Location.isNearTo
-        assert false;
+       if (postcode.charAt(0)!=other.getPostcode().charAt(0)) {
+           return false;
+       }
+       
+       if (postcode.charAt(1)!=other.getPostcode().charAt(1)) {
+           return false;
+       }
+        
         return true;
     }
 
