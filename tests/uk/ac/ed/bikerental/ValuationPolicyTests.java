@@ -33,7 +33,7 @@ public class ValuationPolicyTests {
     // TODO: Write tests for valuation policies
     @Test
     void testDefault() {
-        BigDecimal A = new BigDecimal("10");
+        BigDecimal A = new BigDecimal("100");
         BigDecimal B = DVP.calculateValue(b2, LocalDate.now());
         assertEquals(A.stripTrailingZeros(), B.stripTrailingZeros());
     }
