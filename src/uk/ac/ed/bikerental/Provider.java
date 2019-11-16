@@ -2,6 +2,7 @@ package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Hashtable;
 import java.util.Objects;
 
 public class Provider {
@@ -54,6 +55,11 @@ public class Provider {
     
     public void addPartner(Provider other) {
         this.partners.add(other);
+    }
+    
+    // assumes location is matching already
+    public Collection<Quote> produceOffer(Hashtable<BikeType,Integer> types, DateRange dateRange){
+        return null;
     }
 
 }

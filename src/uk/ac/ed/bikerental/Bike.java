@@ -2,6 +2,7 @@ package uk.ac.ed.bikerental;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Objects;
 
 public class Bike {
 
@@ -16,13 +17,21 @@ public class Bike {
         this.availability = availability;
         this.status = status;
     }
-    
+     
     public BikeType getType() {
-        assert this.type != null;
         return this.type;
     }
     
     public LocalDate getAge() {
         return this.age;
+    }
+    
+    public boolean isAvailableOn(DateRange dateRange) {
+        for (DateRange dateRangeUnavailable : availability) {
+            if (dateRange.overlaps(dateRangeUnavailable)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
