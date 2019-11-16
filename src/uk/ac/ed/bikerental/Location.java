@@ -22,7 +22,7 @@ public class Location {
         this.address = address;
     }
 /**
- * Compares the two first two characters of the this.postcode to other.getPostcode()
+ * Compares the first two characters of the this.postcode to other.getPostcode()
  * and returns true if they are equal else returns false
  *     
  * @param other second Location to perform comparison with
