@@ -7,10 +7,10 @@ public class Location {
     private String address;
     
 /**
- * Creates new object Location with postcode and address attributes.
+ * Creates new object Location with post code and address attributes.
  *   
- * @param stores postcode of the location, its length must be >=6
- * @param address stores address of the location
+ * @param postcode stores post code, its length must be >=6
+ * @param address stores address
  */
     
     public Location(String postcode, String address) {
