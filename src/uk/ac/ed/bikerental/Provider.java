@@ -14,13 +14,14 @@ public class Provider {
     private Collection<Provider> partners;
     private Collection<Bike> bikes;
     
-    private ValuationPolicy VP;
-    private PricingPolicy PP = new DefaultPricingPolicy();
+    private ValuationPolicy valuationPolicy;
+    private PricingPolicy pricingPolicy;
     
     
     
     public Provider(String name, Integer iD, Location address, String phoneNumber, 
-            Collection<Provider> partners,Collection<Bike> bikes) {
+            Collection<Provider> partners, Collection<Bike> bikes, ValuationPolicy valuationPolicy, 
+            PricingPolicy pricingPolicy) {
         
         this.name = name;
         this.ID = iD;
@@ -28,6 +29,8 @@ public class Provider {
         this.phoneNumber = phoneNumber;
         this.partners = partners;
         this.bikes = bikes;
+        this.valuationPolicy = valuationPolicy;
+        this.pricingPolicy = pricingPolicy;
     }
     
     @Override
