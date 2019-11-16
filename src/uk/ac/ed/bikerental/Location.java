@@ -9,8 +9,7 @@ public class Location {
 /**
  * Creates new object Location with postcode and address attributes.
  *   
- * @param stores postcode of the location
- *        postcode postcode.length() must be >=6
+ * @param stores postcode of the location, its length must be >=6
  * @param address stores address of the location
  */
     
