@@ -22,11 +22,7 @@ public class Location {
     }
     
 /**
-<<<<<<< HEAD
  * Compares the first two characters of the this.postcode to other.getPostcode()
-=======
- * Compares the two first characters of the this.postcode and other.getPostcode()
->>>>>>> branch 'master' of https://github.com/samuel117/SE
  * and returns true if they are equal else returns false
  *     
  * @param other is the second Location to perform comparison with
