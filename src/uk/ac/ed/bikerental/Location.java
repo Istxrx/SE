@@ -14,21 +14,20 @@ public class Location {
  * @param postcode stores post code of the location as String
  *        <b>Note:</b> postcode.length() must be >=6
  * @param address stores address of the location as String
- */
-    
+ */ 
     public Location(String postcode, String address) {
         assert postcode.length() >= 6;
         this.postcode = postcode;
         this.address = address;
     }
+    
 /**
- * Compares the two first two characters of the this.postcode to other.getPostcode()
+ * Compares the two first characters of the this.postcode and other.getPostcode()
  * and returns true if they are equal else returns false
  *     
- * @param other second Location to perform comparison with
+ * @param other is the second Location to perform comparison with
  * @return returns boolean depending on equality of the first two characters of the post codes
  */
-    
     public boolean isNearTo(Location other) {
        
        if (postcode.charAt(0)!=other.getPostcode().charAt(0)) {
@@ -41,14 +40,21 @@ public class Location {
         
         return true;
     }
-
+    
+    /**
+     * @return returns this.postcode as String
+     */
     public String getPostcode() {
-        return postcode;
-    }
-
-    public String getAddress() {
-        return address;
+        return this.postcode;
     }
     
-    // You can add your own methods here
+    /**
+     * @return returns this.address as String
+     */
+    public String getAddress() {
+        return this.address;
+    }
+    
+    
+
 }
