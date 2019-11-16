@@ -11,13 +11,23 @@ import java.util.function.BooleanSupplier;
  */
 
 public class DateRange {
-    private LocalDate start, end;
+
+/**
+ * This is start date.
+ */
+    
+    private LocalDate start;
+    
+/**
+ * This is end date. 
+ */
+    private LocalDate end;
 
 /**
  * Creates new DateRange object with start and end attributes.
  *     
- * @param start start date as LocalDate
- * @param end end date as LocalDate
+ * @param start start date as {@link LocalDate}
+ * @param end end date as {@link LocalDate}
  */
     
     public DateRange(LocalDate start, LocalDate end) {
@@ -26,7 +36,7 @@ public class DateRange {
     }
 
 /** 
- * @return this.start as LocalDate
+ * @return this.start as {@link LocalDate}
  */
     
     public LocalDate getStart() {
@@ -34,7 +44,7 @@ public class DateRange {
     }
     
 /**
- * @return this.end as LocalDate
+ * @return this.end as {@link LocalDate}
  */
     
     public LocalDate getEnd() {
@@ -44,7 +54,7 @@ public class DateRange {
 /**
  * Calculates number of years between the start and the end date   
  *  
- * @return the number of years as a long value
+ * @return the number of years as a long
  */
 
     public long toYears() {
@@ -54,7 +64,7 @@ public class DateRange {
 /**
  * Calculates number of days between the start and end date
  *      
- * @return number of days as a long value
+ * @return number of days as a long
  */
 
     public long toDays() {
@@ -64,7 +74,7 @@ public class DateRange {
 /**
  * Finds out if the two DateRanges are overlapping
  *     
- * @param other
+ * @param other other DateRange
  * @return boolean, true if they overlap else false
  */
     
