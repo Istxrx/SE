@@ -5,4 +5,5 @@ import java.time.LocalDate;
 
 public interface ValuationPolicy {
     public BigDecimal calculateValue(Bike bike, LocalDate date);
+    public BigDecimal calculateDeposit(Bike bike, LocalDate date);
 }

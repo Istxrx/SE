@@ -1,5 +1,6 @@
 package uk.ac.ed.bikerental;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -9,8 +10,14 @@ public class Provider {
     private Integer ID;
     private Location address;
     private String phoneNumber;
+    
     private Collection<Provider> partners;
     private Collection<Bike> bikes;
+    
+    private ValuationPolicy VP;
+    private PricingPolicy PP = new DefaultPricingPolicy();
+    
+    
     
     public Provider(String name, Integer iD, Location address, String phoneNumber, 
             Collection<Provider> partners,Collection<Bike> bikes) {
@@ -33,11 +40,17 @@ public class Provider {
         // hashCode method allowing use in collections
         return Objects.hash(this.ID);
     }
-    
-     
-    private Object getID() {
+       
+    public Integer getID() {
         return this.ID;
     }
 
+    public boolean isPartnerOf(Provider other) {
+        return this.partners.contains(other);
+    }
+    
+    public void addPartner(Provider other) {
+        this.partners.add(other);
+    }
 
 }
