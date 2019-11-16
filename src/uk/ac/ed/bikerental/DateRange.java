@@ -14,10 +14,10 @@ public class DateRange {
     private LocalDate start, end;
 
 /**
- * Constructor creates new DateRange object with start and end attributes
+ * Creates new DateRange object with start and end attributes.
  *     
- * @param start start date 
- * @param end end date
+ * @param start start date as LocalDate
+ * @param end end date as LocalDate
  */
     
     public DateRange(LocalDate start, LocalDate end) {
@@ -25,10 +25,8 @@ public class DateRange {
         this.end = end;
     }
 
-/**
- * Getter for start
- *    
- * @return this.start
+/** 
+ * @return this.start as LocalDate
  */
     
     public LocalDate getStart() {
@@ -36,8 +34,7 @@ public class DateRange {
     }
     
 /**
- * Getter for end    
- * @return this.end
+ * @return this.end as LocalDate
  */
     
     public LocalDate getEnd() {
@@ -45,8 +42,9 @@ public class DateRange {
     }
     
 /**
- * Calculates number of years between the start and end date    
- * @return number of years
+ * Calculates number of years between the start and the end date   
+ *  
+ * @return the number of years as a long value
  */
 
     public long toYears() {
@@ -56,7 +54,7 @@ public class DateRange {
 /**
  * Calculates number of days between the start and end date
  *      
- * @return number of days
+ * @return number of days as a long value
  */
 
     public long toDays() {

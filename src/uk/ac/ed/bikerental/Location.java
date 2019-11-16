@@ -10,7 +10,7 @@ public class Location {
     private String address;
     
 /**
- * Constructor creates new object Location with post code and address as String attributes.
+ * Creates new object Location with post code and address as String attributes.
  *   
  * @param postcode stores post code of the location as String
  *        <b>Note:</b> postcode.length() must be >=6
@@ -24,10 +24,10 @@ public class Location {
     
 /**
  * Compares the first two characters of the this.postcode to other.getPostcode()
- * and returns true if they are equal else returns false
+ * and returns true if they are equal else returns false.
  *     
- * @param other is the second Location to perform comparison with
- * @return returns boolean depending on equality of the first two characters of the post codes
+ * @param other is the second Location to perform comparison with.
+ * @return boolean depending on equality of the first two characters of the post codes.
  */
     public boolean isNearTo(Location other) {
        
@@ -43,14 +43,14 @@ public class Location {
     }
     
     /**
-     * @return returns this.postcode as String
+     * @return this.postcode as String
      */
     public String getPostcode() {
         return this.postcode;
     }
     
     /**
-     * @return returns this.address as String
+     * @return this.address as String
      */
     public String getAddress() {
         return this.address;
