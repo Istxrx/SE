@@ -5,6 +5,7 @@ package uk.ac.ed.bikerental;
  */
 
 public class Location {
+
     private String postcode;
     private String address;
     
