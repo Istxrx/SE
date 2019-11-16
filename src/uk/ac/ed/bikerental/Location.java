@@ -1,8 +1,18 @@
 package uk.ac.ed.bikerental;
 
+
+
 public class Location {
     private String postcode;
     private String address;
+    
+/**
+ * Creates new object Location with postcode and address attributes.
+ *   
+ * @param stores postcode of the location
+ *        postcode postcode.length() must be >=6
+ * @param address stores address of the location
+ */
     
     public Location(String postcode, String address) {
         assert postcode.length() >= 6;
