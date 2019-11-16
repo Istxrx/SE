@@ -18,6 +18,13 @@ public class Location {
         this.postcode = postcode;
         this.address = address;
     }
+/**
+ * Compares the two first two characters of the this.postcode to other.getPostcode()
+ * and returns true if they are equal else returns false
+ *     
+ * @param other second Location to perform comparison with
+ * @return returns boolean depending on equality of the first two characters of the post codes
+ */
     
     public boolean isNearTo(Location other) {
        
