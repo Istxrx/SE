@@ -1,16 +1,19 @@
 package uk.ac.ed.bikerental;
 
-
+/**
+ * This class is used to encapsulate post code and address as its String attributes.
+ */
 
 public class Location {
     private String postcode;
     private String address;
     
 /**
- * Creates new object Location with post code and address attributes.
+ * Constructor creates new object Location with post code and address as String attributes.
  *   
- * @param postcode stores post code, its length must be >=6
- * @param address stores address
+ * @param postcode stores post code of the location as String
+ *        <b>Note:</b> postcode.length() must be >=6
+ * @param address stores address of the location as String
  */
     
     public Location(String postcode, String address) {
