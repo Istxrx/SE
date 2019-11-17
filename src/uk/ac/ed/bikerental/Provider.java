@@ -2,7 +2,9 @@ package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Objects;
 
@@ -66,6 +68,23 @@ public class Provider {
     // assumes location is matching already
     public Collection<Quote> produceOffer(Hashtable<BikeType,Integer> types, DateRange dateRange){
         return null;
+    }
+    
+    public static ArrayList<ArrayList<Object>> getCombinations
+        (Collection<Collection<Object>>A, Collection<Collection<Object>>B){
+        
+        ArrayList<ArrayList<Object>> C = new ArrayList<ArrayList<Object>>();
+        
+        for (Collection<Object> a : A) {
+            for (Collection<Object> b : B) {
+                ArrayList<Object> newList = new ArrayList<Object>();
+                newList.addAll(a);
+                newList.addAll(b);
+                C.add(newList);
+            }
+        }
+        return C;
+        
     }
     
     public void acceptReturn(Collection<Bike> returnedBikes) {
