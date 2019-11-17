@@ -1,6 +1,7 @@
 package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.Objects;
@@ -18,11 +19,11 @@ public class Provider {
     private ValuationPolicy valuationPolicy;
     private PricingPolicy pricingPolicy;
     
-    
+    private DeliveryService deliveryService;
     
     public Provider(String name, Integer iD, Location address, String phoneNumber, 
             Collection<Provider> partners, Collection<Bike> bikes, ValuationPolicy valuationPolicy, 
-            PricingPolicy pricingPolicy) {
+            PricingPolicy pricingPolicy, DeliveryService deliveryService) {
         
         this.name = name;
         this.ID = iD;
@@ -32,6 +33,7 @@ public class Provider {
         this.bikes = bikes;
         this.valuationPolicy = valuationPolicy;
         this.pricingPolicy = pricingPolicy;
+        this.deliveryService = deliveryService;
     }
     
     @Override
@@ -48,6 +50,10 @@ public class Provider {
     public Integer getID() {
         return this.ID;
     }
+    
+    public Location getAddress() {
+        return this.address;
+    }
 
     public boolean isPartnerOf(Provider other) {
         return this.partners.contains(other);
@@ -60,6 +66,23 @@ public class Provider {
     // assumes location is matching already
     public Collection<Quote> produceOffer(Hashtable<BikeType,Integer> types, DateRange dateRange){
         return null;
+    }
+    
+    public void acceptReturn(Collection<Bike> returnedBikes) {
+        // if these are own bikes
+        if (this.bikes.containsAll(returnedBikes)) {
+            for (Bike bike : returnedBikes) {
+                bike.updateStatus();
+            } 
+        }
+        // they belong to partners
+        else {
+            for (Bike bike : returnedBikes) {
+                bike.updateStatus("with partner");
+                deliveryService.scheduleDelivery(bike, this.address, bike.getOwner().getAddress(), 
+                        LocalDate.now());
+            }
+        }
     }
 
 }

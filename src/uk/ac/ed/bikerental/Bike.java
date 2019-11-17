@@ -4,15 +4,18 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class Bike {
-
+public class Bike implements Deliverable{
+ 
     private LocalDate age;
+    private Provider owner;
     private BikeType type;
     private HashSet<DateRange> availability;
     private String status;
     
-    public Bike(LocalDate age, BikeType type, HashSet<DateRange> availability, String status) {
+    public Bike(LocalDate age, Provider owner, BikeType type, HashSet<DateRange> availability, 
+            String status) {
         this.age = age;
+        this.owner = owner;
         this.type = type;
         this.availability = availability;
         this.status = status;
@@ -26,6 +29,10 @@ public class Bike {
         return this.age;
     }
     
+    public Provider getOwner() {
+        return this.owner;
+    }
+    
     public boolean isAvailableOn(DateRange dateRange) {
         for (DateRange dateRangeUnavailable : availability) {
             if (dateRange.overlaps(dateRangeUnavailable)) {
@@ -33,5 +40,40 @@ public class Bike {
             }
         }
         return true;
+    }
+    
+    public void updateStatus() {
+        switch (this.status) {
+        case "in shop":
+            this.status = "being delivered to customer";
+            break;
+        case "being delivered to customer":
+            this.status = "with customer";
+            break;    
+        case "with customer":
+            this.status = "in shop";
+            break;
+        case "with partner":
+            this.status = "being delivered to owner";
+            break;
+        case "being delivered to owner":
+            this.status = "in shop";
+            break;
+        }
+    }
+    
+    public void updateStatus(String newStatus) {
+        this.status = newStatus;
+    }
+
+    @Override
+    public void onPickup() {
+        this.updateStatus();
+    }
+
+    @Override
+    public void onDropoff() {
+        this.updateStatus();
+        
     }
 }
