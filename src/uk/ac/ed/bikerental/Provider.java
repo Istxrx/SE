@@ -106,7 +106,7 @@ public class Provider {
         return null;
     }
     
-<<<<<<< HEAD
+
    
     public Collection<Bike> getBikesOfSameTypeAvailable(BikeType type,DateRange dateRange){
         Collection<Bike> sameType = new ArrayList<>();
@@ -120,7 +120,7 @@ public class Provider {
     }
     
     
-=======
+
     public static ArrayList<ArrayList<Object>> getCombinations
         (Collection<Collection<Object>>A, Collection<Collection<Object>>B){
         
@@ -137,7 +137,7 @@ public class Provider {
         return C;
         
     }
->>>>>>> branch 'master' of https://github.com/samuel117/SE
+
     
     public void acceptReturn(Collection<Bike> returnedBikes) {
         // if these are own bikes
