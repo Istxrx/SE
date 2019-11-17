@@ -69,51 +69,50 @@ public class Provider {
 
     // assumes location is matching already
     public Collection<Quote> produceOffer(Hashtable<BikeType, Integer> types, DateRange dateRange) {
-        // create Hashtable of bikesInStock for dateRange
-        Hashtable<BikeType, Integer> bikesInStock = new Hashtable<>();
-        Integer addOneMore;
-        for (Bike bicycle : bikes) {
-            if (bicycle.isAvailableOn(dateRange)) {
-                if (bikesInStock.get(bicycle.getType()) == null) {
-                    addOneMore = 1;
-                } else {
-                    addOneMore = bikesInStock.get(bicycle.getType()) + 1;
-                }
-
-                bikesInStock.put(bicycle.getType(), addOneMore);
-            }
-        }
-
-        int satisfy = 0;
+        
+        Collection<Quote> quotes = new HashSet<>();
+        
         // check if provider can satisfy quote
-        Set<BikeType> keys = new HashSet<>(types.keySet());
-        for (BikeType key : keys) {
-            if (bikesInStock.get(key) >= types.get(key)) {
-                satisfy = +1;
-            }
-        }
-        if (satisfy != types.size()) {
-            return null;
+        Set<BikeType> wantedTypes = new HashSet<>(types.keySet());
+        for (BikeType wantedType : wantedTypes) {
+            if(!(this.getBikesOfSameTypeAvailable(wantedType, dateRange).size()>=types.get(wantedType))){
+               return quotes; 
+            }  
         }
 
-        
         //return quotes
-        ArrayList<ArrayList<Bike>> allTypeCombinations= new ArrayList<>();
-        for(BikeType key : keys) {
-            ArrayList<Bike> sameType =
-                    new ArrayList<>(this.getBikesOfSameTypeAvailable(key,dateRange));
-            Comb.makeCombination(sameType,sameType.size(),types.get(key),allTypeCombinations);
+        
+        ArrayList<ArrayList<Bike>> bikesOfTypes = new ArrayList<>();
+        
+        for(BikeType wantedType : wantedTypes) {
+            ArrayList<Bike> bikesOfSameType =
+                    new ArrayList<>(this.getBikesOfSameTypeAvailable(wantedType,dateRange));
+            bikesOfTypes.add(bikesOfSameType);
             }
         
-        for (int i = 0; i < types.size()-1; i++) {
+        ArrayList<ArrayList<ArrayList<Bike>>> rCombinationsOfBikesOfTypes = new ArrayList<>();
+        
+        for (ArrayList<Bike> listOfBikes : bikesOfTypes) {
+            
+            int r = types.get(listOfBikes.get(0).getType());
+            if (r>1){
+            rCombinationsOfBikesOfTypes.add(
+                    Combinations.getRCombinations(listOfBikes,r));
+            }else {
+                rCombinationsOfBikesOfTypes.add(Combinations.splitToElements(listOfBikes));
+            }
         }
-        return null;
+        
+        for (int i = 0; i < rCombinationsOfBikesOfTypes.size()-1; i++) {
+            
+        }
+        
+        
     }
 
     public Collection<Bike> getBikesOfSameTypeAvailable(BikeType type, DateRange dateRange) {
         Collection<Bike> sameType = new ArrayList<>();
-        for (Iterator iterator = bikes.iterator(); iterator.hasNext();) {
-            Bike bike = (Bike) iterator.next();
+        for (Bike bike : bikes) {
             if (bike.getType().equals(type) && bike.isAvailableOn(dateRange)) {
                 sameType.add(bike);
             }

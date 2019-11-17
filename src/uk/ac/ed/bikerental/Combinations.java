@@ -5,25 +5,25 @@ import java.util.ArrayList;
 public class Combinations {
 
     // e.q. splits {1,2,3} to {{1},{2},{3}}
-    public static ArrayList<ArrayList<Object>> splitToElements(ArrayList<Object> A) {
-        ArrayList<ArrayList<Object>> C = new ArrayList<ArrayList<Object>>();
+    public static ArrayList<ArrayList<Bike>> splitToElements(ArrayList<Bike> A) {
+        ArrayList<ArrayList<Bike>> C = new ArrayList<ArrayList<Bike>>();
 
-        for (Object a : A) {
-            ArrayList<Object> newList = new ArrayList<Object>();
+        for (Bike a : A) {
+            ArrayList<Bike> newList = new ArrayList<Bike>();
             newList.add(a);
             C.add(newList);
         }
         return C;
     }
 
-    public static ArrayList<ArrayList<Object>> getCombinations(ArrayList<ArrayList<Object>> A,
-            ArrayList<ArrayList<Object>> B) {
+    public static ArrayList<ArrayList<Bike>> getCombinations(ArrayList<ArrayList<Bike>> A,
+            ArrayList<ArrayList<Bike>> B) {
 
-        ArrayList<ArrayList<Object>> C = new ArrayList<ArrayList<Object>>();
+        ArrayList<ArrayList<Bike>> C = new ArrayList<ArrayList<Bike>>();
 
-        for (ArrayList<Object> a : A) {
-            for (ArrayList<Object> b : B) {
-                ArrayList<Object> newList = new ArrayList<Object>();
+        for (ArrayList<Bike> a : A) {
+            for (ArrayList<Bike> b : B) {
+                ArrayList<Bike> newList = new ArrayList<Bike>();
                 newList.addAll(a);
                 newList.addAll(b);
                 if (!a.contains(b)) {
@@ -34,10 +34,10 @@ public class Combinations {
         return C;
     }
 
-    public static ArrayList<ArrayList<Object>> getRCombinations(ArrayList<Object> A, int r) {
+    public static ArrayList<ArrayList<Bike>> getRCombinations(ArrayList<Bike> A, int r) {
 
-        ArrayList<ArrayList<Object>> C = splitToElements(A);
-        ArrayList<ArrayList<Object>> AsplitToElements = splitToElements(A);
+        ArrayList<ArrayList<Bike>> C = splitToElements(A);
+        ArrayList<ArrayList<Bike>> AsplitToElements = splitToElements(A);
 
         for (int i = 0; i < r - 1; i++) {
             C = getCombinations(C, AsplitToElements);
