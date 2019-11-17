@@ -103,6 +103,10 @@ public class Provider {
                     new ArrayList<>(this.getBikesOfSameTypeAvailable(key,dateRange));
             Comb.makeCombination(sameType,sameType.size(),types.get(key),allTypeCombinations);
             }
+        
+        for (int i = 0; i < types.size()-1; i++) {
+            
+        }
         return null;
     }
     
