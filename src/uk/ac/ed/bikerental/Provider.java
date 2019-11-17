@@ -2,9 +2,13 @@ package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Objects;
+import java.util.Set;
 
 public class Provider {
     
@@ -65,8 +69,56 @@ public class Provider {
     
     // assumes location is matching already
     public Collection<Quote> produceOffer(Hashtable<BikeType,Integer> types, DateRange dateRange){
+        // create Hashtable of bikesInStock for dateRange
+        Hashtable<BikeType,Integer> bikesInStock = new Hashtable<>();
+        Integer addOneMore;
+        for(Bike bicycle : bikes) {
+                if (bicycle.isAvailableOn(dateRange)) {
+                    if (bikesInStock.get(bicycle.getType())==null) {
+                        addOneMore=1;
+                    }else {
+                        addOneMore=bikesInStock.get(bicycle.getType())+1;
+                    }
+            
+                    bikesInStock.put(bicycle.getType(), addOneMore);
+                }
+        }
+        
+        int satisfy = 0;
+        // check if provider can satisfy quote
+        Set<BikeType> keys = new HashSet<>(types.keySet());
+        for(BikeType key : keys) {
+            if (bikesInStock.get(key)>=types.get(key)) {
+                satisfy=+1;
+            } 
+        }
+        if (satisfy != types.size()) {
+            return null;
+        }
+        
+        //return quotes
+        ArrayList<ArrayList<Bike>> allTypeCombinations= new ArrayList<>();
+        for(BikeType key : keys) {
+            ArrayList<Bike> sameType =
+                    new ArrayList<>(this.getBikesOfSameTypeAvailable(key,dateRange));
+            Comb.makeCombination(sameType,sameType.size(),types.get(key),allTypeCombinations);
+            }
         return null;
     }
+    
+   
+    public Collection<Bike> getBikesOfSameTypeAvailable(BikeType type,DateRange dateRange){
+        Collection<Bike> sameType = new ArrayList<>();
+        for (Iterator iterator = bikes.iterator(); iterator.hasNext();) {
+            Bike bike = (Bike) iterator.next();
+            if (bike.getType().equals(type) && bike.isAvailableOn(dateRange)) {
+                sameType.add(bike);
+            }
+        }
+        return sameType;
+    }
+    
+    
     
     public void acceptReturn(Collection<Bike> returnedBikes) {
         // if these are own bikes
