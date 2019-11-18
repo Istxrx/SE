@@ -20,14 +20,14 @@ public class PricingPolicyTests {
     void setUp() throws Exception {
         // Put setup here
         b1 = new Bike(
-                null,
+                1,
                 LocalDate.of(2016, 1, 7), 
                 null,
                 new BikeType(new BigDecimal("900"),"ebike"), 
                 null, 
                 "shop");
         b2 = new Bike(
-                null,
+                2,
                 LocalDate.of(2018, 1, 7), 
                 null,
                 new BikeType(new BigDecimal("100"),"mountain"), 
