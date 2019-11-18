@@ -26,7 +26,7 @@ public class Combinations {
                 ArrayList<Bike> newList = new ArrayList<Bike>();
                 newList.addAll(a);
                 newList.addAll(b);
-                if (!a.contains(b)) {
+                if (!a.containsAll(b)) {
                     C.add(newList);
                 }
             }

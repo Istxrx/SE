@@ -6,23 +6,40 @@ import java.util.Objects;
 
 public class Bike implements Deliverable{
  
+    private Integer ID;
     private LocalDate age;
     private Provider owner;
     private BikeType type;
     private HashSet<DateRange> availability;
     private String status;
     
-    public Bike(LocalDate age, Provider owner, BikeType type, HashSet<DateRange> availability, 
+    public Bike(Integer ID, LocalDate age, Provider owner, BikeType type, HashSet<DateRange> availability, 
             String status) {
+        this.ID = ID;
         this.age = age;
         this.owner = owner;
         this.type = type;
         this.availability = availability;
         this.status = status;
     }
+    
+    @Override
+    public boolean equals(Object other) {
+        return this.ID.equals(((Bike) other).getID());
+    }
+
+    @Override
+    public int hashCode() {
+        // hashCode method allowing use in collections
+        return Objects.hash(this.ID);
+    }
      
     public BikeType getType() {
         return this.type;
+    }
+    
+    public Integer getID() {
+        return this.ID;
     }
     
     public LocalDate getAge() {

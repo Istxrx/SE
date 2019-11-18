@@ -75,7 +75,8 @@ public class Provider {
         // check if provider can satisfy quote
         Set<BikeType> wantedTypes = new HashSet<>(types.keySet());
         for (BikeType wantedType : wantedTypes) {
-            if(!(this.getBikesOfSameTypeAvailable(wantedType, dateRange).size()>=types.get(wantedType))){
+            if(!(this.getBikesOfSameTypeAvailable(wantedType, dateRange).size()>=
+                    types.get(wantedType))){
                return quotes; 
             }  
         }
@@ -103,11 +104,24 @@ public class Provider {
             }
         }
         
-        for (int i = 0; i < rCombinationsOfBikesOfTypes.size()-1; i++) {
-            
+        ArrayList<ArrayList<Bike>> finalCombinations = 
+                new ArrayList<>(rCombinationsOfBikesOfTypes.get(0));
+        
+        for (int i = 1; i < rCombinationsOfBikesOfTypes.size(); i++) {
+            finalCombinations = 
+                    Combinations.getCombinations(
+                            finalCombinations,rCombinationsOfBikesOfTypes.get(i));
         }
         
+        for (ArrayList<Bike> combination : finalCombinations) {
+            quotes.add(
+                    new Quote(this, 
+                            combination, 
+                            this.calculatePrice(combination, dateRange), 
+                            this.calculateDeposit(combination)));
+        }
         
+        return quotes;
     }
 
     public Collection<Bike> getBikesOfSameTypeAvailable(BikeType type, DateRange dateRange) {
@@ -138,4 +152,17 @@ public class Provider {
         }
     }
 
+    public BigDecimal calculatePrice(Collection<Bike> bikes, DateRange duration) {
+        return this.pricingPolicy.calculatePrice(bikes, duration);
+    }
+    
+    public BigDecimal calculateDeposit(Collection<Bike> bikes) {
+        BigDecimal price = new BigDecimal("0");
+        for (Bike bike : bikes) {
+            price = price.add(this.valuationPolicy.calculateDeposit(bike, bike.getAge()));
+        }
+        return price;
+    }
 }
+    
+
