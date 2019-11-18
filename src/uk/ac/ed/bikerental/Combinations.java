@@ -27,7 +27,9 @@ public class Combinations {
                 newList.addAll(a);
                 newList.addAll(b);
                 if (!a.containsAll(b)) {
-                    C.add(newList);
+                    if (!containsSpecial(C,newList)) {
+                        C.add(newList);
+                    }
                 }
             }
         }
@@ -45,5 +47,13 @@ public class Combinations {
         return C;
     }
 
+    public static boolean containsSpecial(ArrayList<ArrayList<Bike>> A,ArrayList<Bike> b) {
+        for (ArrayList<Bike> a : A) {
+            if (a.containsAll(b)) {
+                return true;
+            }
+        }
+        return false;
+    }
     
 }

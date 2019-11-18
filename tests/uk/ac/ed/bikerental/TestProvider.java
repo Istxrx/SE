@@ -86,6 +86,6 @@ public class TestProvider {
     void testOffer() {
         DateRange d1 = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
         int a = p1.produceOffer(types1, d1).size();
-        assertEquals(36,a); 
+        assertEquals(9,a); 
     }
 }
