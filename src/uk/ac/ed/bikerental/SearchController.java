@@ -8,8 +8,9 @@ public class SearchController {
     
     private ProviderController providerController;
     private BookingController bookingController;
+    private Collection<Quote> resultOfLastSearch;
     
-    public Collection<Quote> getQuotes (Map<BikeType, Integer> types, DateRange dateRange) {
+    public void getQuotes (Map<BikeType, Integer> types, DateRange dateRange) {
         
         Collection<Quote> quotes = new HashSet<>();
         
@@ -17,7 +18,8 @@ public class SearchController {
             quotes.addAll(provider.produceOffer(types, dateRange));
         }
         
-        return quotes;
+        this.resultOfLastSearch = quotes;
     }
 
+    
 }
