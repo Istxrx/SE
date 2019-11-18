@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -68,12 +69,12 @@ public class Provider {
     }
 
     // assumes location is matching already
-    public Collection<Quote> produceOffer(Hashtable<BikeType, Integer> types, DateRange dateRange) {
+    public Collection<Quote> produceOffer(Map<BikeType, Integer> types, DateRange dateRange) {
         
         Collection<Quote> quotes = new HashSet<>();
         
         // check if provider can satisfy quote
-        Set<BikeType> wantedTypes = new HashSet<>(types.keySet());
+        Collection<BikeType> wantedTypes = new HashSet<>(types.keySet());
         for (BikeType wantedType : wantedTypes) {
             if(!(this.getBikesOfSameTypeAvailable(wantedType, dateRange).size()>=
                     types.get(wantedType))){

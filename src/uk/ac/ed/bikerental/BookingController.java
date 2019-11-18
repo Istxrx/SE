@@ -6,4 +6,13 @@ public class BookingController {
 
     private Collection<Booking>allBookings;
     private ProviderController providerController;
+    
+    public BookingController(Collection<Booking> allBookings, ProviderController providerController) {
+        
+        this.allBookings = allBookings;
+        this.providerController = providerController;
+    }
+    
+    
+    
 }
