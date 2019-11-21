@@ -82,7 +82,8 @@ public class Provider {
             }  
         }
 
-        //return quotes
+        //continue to return quotes
+        //splits available bikes into groups of same type
         
         ArrayList<ArrayList<Bike>> bikesOfTypes = new ArrayList<>();
         
@@ -91,6 +92,8 @@ public class Provider {
                     new ArrayList<>(this.getBikesOfSameTypeAvailable(wantedType,dateRange));
             bikesOfTypes.add(bikesOfSameType);
             }
+        
+        //in each group of same type, create all possible r-combinations from this group
         
         ArrayList<ArrayList<ArrayList<Bike>>> rCombinationsOfBikesOfTypes = new ArrayList<>();
         
@@ -105,6 +108,8 @@ public class Provider {
             }
         }
         
+        //combine elements from each group to form final tuples
+        
         ArrayList<ArrayList<Bike>> finalCombinations = 
                 new ArrayList<>(rCombinationsOfBikesOfTypes.get(0));
         
@@ -113,6 +118,8 @@ public class Provider {
                     Combinations.getCombinations(
                             finalCombinations,rCombinationsOfBikesOfTypes.get(i));
         }
+        
+        //create quotes for each corresponding tuple of combinations
         
         for (ArrayList<Bike> combination : finalCombinations) {
             quotes.add(

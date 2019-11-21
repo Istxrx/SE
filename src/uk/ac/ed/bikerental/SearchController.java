@@ -9,7 +9,13 @@ public class SearchController {
     private ProviderController providerController;
     private BookingController bookingController;
     private Collection<Quote> resultOfLastSearch;
-    
+        
+    public SearchController(ProviderController providerController, BookingController bookingController) {
+        this.providerController = providerController;
+        this.bookingController = bookingController;
+        this.resultOfLastSearch = null;
+    }
+
     public void getQuotes (Map<BikeType, Integer> types, DateRange dateRange) {
         
         Collection<Quote> quotes = new HashSet<>();
