@@ -9,10 +9,10 @@ class TestLocation {
     @BeforeEach
     void setUp() throws Exception {
         // TODO: setup some resources before each test
-        this.location1 = new Location("EH1 1LG", "Niddry Street 39");
-        this.location2 = new Location("EH7 5QP", "Albion Road 43");
-        this.location3 = new Location("G1 1AB", "George Street 12");
-        this.location4 = new Location("EK2 1KL", "Victoria Street 23");
+        location1 = new Location("EH1 1LG", "Niddry Street 39");
+        location2 = new Location("EH7 5QP", "Albion Road 43");
+        location3 = new Location("G1 1AB", "George Street 12");
+        location4 = new Location("EK2 1KL", "Victoria Street 23");
     }
     
     @Test
