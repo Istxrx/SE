@@ -72,7 +72,7 @@ public class TestProvider {
         DPP.setDailyRentalPrice(new BikeType(null,"mountain"), new BigDecimal("10"));
         DPP.setDailyRentalPrice(new BikeType(null,"ebike"), new BigDecimal("5"));
         
-        p1 = new Provider("Kokot", null, null, null, null, 
+        p1 = new Provider("Provider", null, null, null, null, 
                 bikes1, 
                 new DefaultValuationPolicy(new BigDecimal("0.1")), 
                 DPP, 
