@@ -16,11 +16,11 @@ public class SearchController {
         this.resultOfLastSearch = null;
     }
 
-    public void getQuotes (Map<BikeType, Integer> types, DateRange dateRange) {
+    public void getQuotes (Map<BikeType, Integer> types, DateRange dateRange, Location location) {
         
         Collection<Quote> quotes = new HashSet<>();
         
-        for (Provider provider : this.providerController.getAllProviders()) {
+        for (Provider provider : this.providerController.getAllProvidersInTheArea(location)) {
             quotes.addAll(provider.produceOffer(types, dateRange));
         }
         
