@@ -20,6 +20,16 @@ public class BookingController {
         this.IdCounter = 0;
     }
     
+    public Booking getBookingByID(Integer ID) {
+        
+        for (Booking booking : allBookings) {
+            if (booking.getID() == ID) {
+                return booking;
+            }
+        }
+        return null;
+    }
+    
     public Collection<Quote> getQuotes (Map<BikeType, Integer> types, DateRange dateRange,
             Location location) {
         

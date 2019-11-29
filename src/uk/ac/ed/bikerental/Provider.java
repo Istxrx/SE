@@ -156,9 +156,12 @@ public class Provider {
         return sameType;
     }
 
-    public void acceptReturn(Collection<Bike> returnedBikes) {
+    public void acceptReturn(Integer bookingID) {
+        
+        Booking booking = this.bookingController.getBookingByID(bookingID);
+        Collection<Bike> returnedBikes = booking.getBikes();
         // if these are own bikes
-        if (this.bikes.containsAll(returnedBikes)) {
+        if (this == booking.getProvider()) {
             for (Bike bike : returnedBikes) {
                 bike.updateStatus();
             }
