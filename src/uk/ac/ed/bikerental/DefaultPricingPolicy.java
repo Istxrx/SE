@@ -2,11 +2,13 @@ package uk.ac.ed.bikerental;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Map;
 
 public class DefaultPricingPolicy implements PricingPolicy{
     
-    private Hashtable<BikeType,BigDecimal> pricingList = new Hashtable<>();
+    private Map<BikeType,BigDecimal> pricingList = new HashMap<>();
 
     @Override
     public void setDailyRentalPrice(BikeType bikeType, BigDecimal dailyPrice) {

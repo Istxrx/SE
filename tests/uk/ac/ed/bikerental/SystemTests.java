@@ -20,7 +20,7 @@ public class SystemTests {
     
     private Provider p1,p2,p3;
     private Collection<Bike> bikes1, bikes2, bikes3;
-    private Hashtable<BikeType, Integer> types1,types2,types3;
+    private HashMap<BikeType, Integer> types1,types2,types3;
     private Location location1,location2,location3;
     private ProviderController providerController;
     private BookingController bookingController;
@@ -197,7 +197,7 @@ public class SystemTests {
 
     @Test
     void testGetQuotes() {
-        types1 = new Hashtable<>();
+        types1 = new HashMap<>();
         types1.put(new BikeType(null,"mountain"), 2);
         types1.put(new BikeType(null,"ebike"), 2);
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));

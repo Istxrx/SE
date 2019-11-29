@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -15,7 +16,7 @@ public class TestProvider {
 
     private Provider p1;
     private Collection<Bike> bikes1, bikes2;
-    private Hashtable<BikeType, Integer> types1;
+    private HashMap<BikeType, Integer> types1;
 
     
     @BeforeEach
@@ -64,7 +65,7 @@ public class TestProvider {
                 new BikeType(new BigDecimal("100"),"ebike"), 
                 new HashSet<DateRange>(), 
                 "shop"));
-        types1 = new Hashtable<>();
+        types1 = new HashMap<>();
         types1.put(new BikeType(null,"mountain"), 2);
         types1.put(new BikeType(null,"ebike"), 2);
         

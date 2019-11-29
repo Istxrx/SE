@@ -6,11 +6,9 @@ import java.util.Collection;
 public class ProviderController {
 
     private Collection<Provider> allProviders;
-    private BookingController bookingController;
     
-    public ProviderController(Collection<Provider> allProviders, BookingController bookingController) {
+    public ProviderController(Collection<Provider> allProviders) {
         this.allProviders = allProviders;
-        this.bookingController = bookingController;
     }
 
     public Collection<Provider> getAllProviders() {
