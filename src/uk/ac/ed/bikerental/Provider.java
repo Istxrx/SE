@@ -166,7 +166,7 @@ public class Provider {
                 bike.updateStatus();
             }
         }
-        // they belong to partners
+        // they belong to one of partners
         else {
             for (Bike bike : returnedBikes) {
                 bike.updateStatus("with partner");
