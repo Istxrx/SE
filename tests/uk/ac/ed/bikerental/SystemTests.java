@@ -22,7 +22,7 @@ public class SystemTests {
     private BookingController bookingController;
     private Collection<Provider> allProviders;
     private Customer customer;
-    private Bike b1;
+    private Bike b1,b2;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -99,7 +99,7 @@ public class SystemTests {
                 bikes1, 
                 new DefaultValuationPolicy(), 
                 DPP1,new BigDecimal("0.1"), 
-                null, bookingController);
+                DeliveryServiceFactory.getDeliveryService(), bookingController);
         
         //PROVIDER 1 END
         
@@ -122,13 +122,15 @@ public class SystemTests {
                 new HashSet<DateRange>(), 
                 "shop");
         bikes2.add(b1);
-        bikes2.add(new Bike(
+        
+        b2 = new Bike(
                 9,
                 LocalDate.of(2018, 1, 7), 
                 null,
                 new BikeType(new BigDecimal("100"),"ebike"), 
                 new HashSet<DateRange>(), 
-                "shop"));
+                "shop");
+        bikes2.add(b2);
         bikes2.add(new Bike(
                 88,
                 LocalDate.of(2018, 1, 7), 
@@ -149,7 +151,7 @@ public class SystemTests {
                 bikes2, 
                 new DefaultValuationPolicy(), 
                 DPP2, new BigDecimal("0.1"), 
-                null,bookingController);
+                DeliveryServiceFactory.getDeliveryService(),bookingController);
         
         //PROVIDER 2 END
         
@@ -198,7 +200,7 @@ public class SystemTests {
                 bikes3, 
                 new DefaultValuationPolicy(), 
                 DPP2,new BigDecimal("0.1"), 
-                null,bookingController);
+                DeliveryServiceFactory.getDeliveryService(),bookingController);
         
         //PROVIDER 3 END
    
@@ -252,7 +254,6 @@ public class SystemTests {
     void testBookQuote() {
      
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
-        Location location = new Location("EH7 5KL","Kings Street 5");
         Collection<Bike> testBikeSet = new HashSet<>();
         testBikeSet.add(b1);
         Quote testQuote = new Quote(p2, testBikeSet,new BigDecimal(45),null,dateRange);
@@ -265,6 +266,34 @@ public class SystemTests {
         bookingController.getBookingByID(bookingController.bookQuote(testQuote, customer, false)
                 .getUniqueID()).getBikes().containsAll(testBikeSet));
         
+        
+        
+    }
+    
+    @Test
+    void testBookQuoteWithDelivery() {
+     
+        DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
+        Collection<Bike> testBikeSet = new HashSet<>();
+        testBikeSet.add(b1);
+        testBikeSet.add(b2);
+        Quote testQuote = new Quote(p2, testBikeSet,new BigDecimal(45),null,dateRange);
+        
+        customer = new Customer(0);
+        customer.provideDetails("John", new Location("EH1 1LG","Niddry street 39"), "123456789");
+        
+        //the bike gets booked with delivery
+        Invoice summary = bookingController.bookQuote(testQuote, customer, true);
+        
+        Booking booking = bookingController.getBookingByID(summary.getUniqueID());
+        
+        assertTrue(booking.isDelivery());
+        
+        for (Bike bike : testBikeSet) {
+            assertEquals("shop",bike.getStatus());
+        }
+        
+        DeliveryServiceFactory.getDeliveryService().carryOutPickups();
         
         
     }

@@ -51,6 +51,10 @@ public class Bike implements Deliverable{
         return this.owner;
     }
     
+    public String getStatus() {
+        return this.status;
+    }
+    
     public boolean isAvailableOn(DateRange dateRange) {
         for (DateRange dateRangeUnavailable : availability) {
             if (dateRange.overlaps(dateRangeUnavailable)) {
