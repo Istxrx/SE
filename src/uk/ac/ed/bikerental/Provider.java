@@ -23,12 +23,13 @@ public class Provider {
 
     private ValuationPolicy valuationPolicy;
     private PricingPolicy pricingPolicy;
+    private BigDecimal depositRate;
 
     private DeliveryService deliveryService;
 
-    public Provider(String name, Integer iD, Location address, String phoneNumber, Collection<Provider> partners,
-            Collection<Bike> bikes, ValuationPolicy valuationPolicy, PricingPolicy pricingPolicy,
-            DeliveryService deliveryService) {
+    public Provider(String name, Integer iD, Location address, String phoneNumber,
+            Collection<Provider> partners, Collection<Bike> bikes, ValuationPolicy valuationPolicy,
+            PricingPolicy pricingPolicy,BigDecimal depositRate, DeliveryService deliveryService) {
 
         this.name = name;
         this.ID = iD;
@@ -38,6 +39,7 @@ public class Provider {
         this.bikes = bikes;
         this.valuationPolicy = valuationPolicy;
         this.pricingPolicy = pricingPolicy;
+        this.depositRate = depositRate;
         this.deliveryService = deliveryService;
     }
 
@@ -59,9 +61,17 @@ public class Provider {
     public Location getAddress() {
         return this.address;
     }
+    
+    public DeliveryService getDeliveryService() {
+        return this.deliveryService;
+    }
 
     public boolean isPartnerOf(Provider other) {
         return this.partners.contains(other);
+    }
+    
+    public void setDepositRate(BigDecimal depositRate) {
+        this.depositRate = depositRate;
     }
 
     public void addPartner(Provider other) {
@@ -122,11 +132,12 @@ public class Provider {
         //create quotes for each corresponding tuple of combinations
         
         for (ArrayList<Bike> combination : finalCombinations) {
-            quotes.add(
-                    new Quote(this, 
+            quotes.add(new Quote(this, 
                             combination, 
-                            this.calculatePrice(combination, dateRange), 
-                            this.calculateDeposit(combination)));
+                            calculatePrice(combination, dateRange), 
+                            calculateDeposit(combination),
+                            dateRange));
+                            
         }
         
         return quotes;
@@ -142,7 +153,6 @@ public class Provider {
         return sameType;
     }
 
-    
     public void acceptReturn(Collection<Bike> returnedBikes) {
         // if these are own bikes
         if (this.bikes.containsAll(returnedBikes)) {
@@ -167,7 +177,8 @@ public class Provider {
     public BigDecimal calculateDeposit(Collection<Bike> bikes) {
         BigDecimal price = new BigDecimal("0");
         for (Bike bike : bikes) {
-            price = price.add(this.valuationPolicy.calculateDeposit(bike, bike.getAge()));
+            price = price.add(depositRate.multiply(this.valuationPolicy.calculateValue(bike,
+                    LocalDate.now())));
         }
         return price;
     }

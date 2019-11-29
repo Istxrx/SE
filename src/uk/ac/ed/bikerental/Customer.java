@@ -7,14 +7,12 @@ public class Customer {
     private Location address;
     private String phoneNumber;
     
-    public Customer(String name, Integer iD, Location address, String phoneNumber) {        
-        this.name = name;
-        this.ID = iD;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
+    public Customer(Integer ID) {        
+        this.name = null;
+        this.ID = ID;
+        this.address = null;
+        this.phoneNumber = null;
     }
-    
-    public Customer() {}
     
     public Location getAddress() {
         return this.address;
@@ -32,9 +30,8 @@ public class Customer {
         return this.phoneNumber;
     }
     
-    public void provideDetails(String name, Integer iD, Location address, String phoneNumber) {
+    public void provideDetails(String name,Location address, String phoneNumber) {
         this.name = name;
-        this.ID = iD;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }

@@ -9,12 +9,15 @@ public class Quote {
     private Collection<Bike> bikes;
     private BigDecimal price;
     private BigDecimal deposit; 
+    private DateRange dateRange;
     
-    public Quote(Provider provider, Collection<Bike> bikes, BigDecimal price, BigDecimal deposit) {
+    public Quote(Provider provider, Collection<Bike> bikes, BigDecimal price, BigDecimal deposit,
+            DateRange dateRange) {
         this.provider = provider;
         this.bikes = bikes;
         this.price = price;
         this.deposit = deposit;
+        this.dateRange = dateRange;
     }
 
     public Provider getProvider() {
@@ -31,5 +34,9 @@ public class Quote {
 
     public BigDecimal getDeposit() {
         return this.deposit;
+    }
+    
+    public DateRange getDateRange() {
+        return this.dateRange;
     }
 }

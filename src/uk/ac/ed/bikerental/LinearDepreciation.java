@@ -5,18 +5,14 @@ import java.time.LocalDate;
 
 public class LinearDepreciation implements ValuationPolicy {
     
-    private BigDecimal depositRate;
+    
     private BigDecimal depreciationRate;
     
-    public LinearDepreciation(BigDecimal depositRate, BigDecimal depreciationRate) {
-        this.depositRate = depositRate;
+    public LinearDepreciation(BigDecimal depreciationRate) {
         this.depreciationRate = depreciationRate;
     }
     
-    public void setDepositRate(BigDecimal depositRate) {
-        this.depositRate = depositRate;
-    }
-
+   
     public void setDepreciationRate(BigDecimal depreciationRate) {
         this.depreciationRate = depreciationRate;
     }
@@ -26,11 +22,6 @@ public class LinearDepreciation implements ValuationPolicy {
         BigDecimal replacementValue = bike.getType().getReplacementValue();
         return 
         replacementValue.subtract((age.multiply(depreciationRate)).multiply(replacementValue)); 
-    }
-    
-    @Override
-    public BigDecimal calculateDeposit(Bike bike, LocalDate date) {
-        return depositRate.multiply(calculateValue(bike, date));
     }
 }
 

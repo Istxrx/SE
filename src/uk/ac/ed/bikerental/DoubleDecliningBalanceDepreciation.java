@@ -5,16 +5,10 @@ import java.time.LocalDate;
  
 public class DoubleDecliningBalanceDepreciation implements ValuationPolicy  {
     
-    private BigDecimal depositRate;
     private BigDecimal depreciationRate;
     
-    public DoubleDecliningBalanceDepreciation(BigDecimal depositRate, BigDecimal depreciationRate) {
-        this.depositRate = depositRate;
+    public DoubleDecliningBalanceDepreciation(BigDecimal depreciationRate) {
         this.depreciationRate = depreciationRate;
-    }
-    
-    public void setDepositRate(BigDecimal depositRate) {
-        this.depositRate = depositRate;
     }
 
     public void setDepreciationRate(BigDecimal depreciationRate) {
@@ -29,8 +23,4 @@ public class DoubleDecliningBalanceDepreciation implements ValuationPolicy  {
         (age.subtract(BigDecimal.ONE).multiply(depreciationRate)).pow(age.intValue())); 
     }
     
-    @Override
-    public BigDecimal calculateDeposit(Bike bike, LocalDate date) {
-        return depositRate.multiply(calculateValue(bike, date));
-    }
 }
