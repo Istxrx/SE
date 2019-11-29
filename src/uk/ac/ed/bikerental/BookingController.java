@@ -12,14 +12,16 @@ public class BookingController {
     private Integer IdCounter;
     
     
-    public BookingController(Collection<Booking> allBookings, ProviderController providerController) {
+    public BookingController(Collection<Booking> allBookings,
+            ProviderController providerController) {
         
         this.allBookings = allBookings;
         this.providerController = providerController;
         this.IdCounter = 0;
     }
     
-    public Collection<Quote> getQuotes (Map<BikeType, Integer> types, DateRange dateRange, Location location) {
+    public Collection<Quote> getQuotes (Map<BikeType, Integer> types, DateRange dateRange,
+            Location location) {
         
         Collection<Quote> quotes = new HashSet<>();
         

@@ -26,10 +26,12 @@ public class Provider {
     private BigDecimal depositRate;
 
     private DeliveryService deliveryService;
+    private BookingController bookingController;
 
     public Provider(String name, Integer iD, Location address, String phoneNumber,
             Collection<Provider> partners, Collection<Bike> bikes, ValuationPolicy valuationPolicy,
-            PricingPolicy pricingPolicy,BigDecimal depositRate, DeliveryService deliveryService) {
+            PricingPolicy pricingPolicy,BigDecimal depositRate, DeliveryService deliveryService,
+            BookingController bookingController) {
 
         this.name = name;
         this.ID = iD;
@@ -41,6 +43,7 @@ public class Provider {
         this.pricingPolicy = pricingPolicy;
         this.depositRate = depositRate;
         this.deliveryService = deliveryService;
+        this.bookingController = bookingController;
     }
 
     @Override
