@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,6 +18,7 @@ public class TestProvider {
     private Provider p1;
     private Collection<Bike> bikes1, bikes2;
     private HashMap<BikeType, Integer> types1;
+    private Collection<Provider> allProviders;
 
     
     @BeforeEach
@@ -73,13 +75,20 @@ public class TestProvider {
         DPP.setDailyRentalPrice(new BikeType(null,"mountain"), new BigDecimal("10"));
         DPP.setDailyRentalPrice(new BikeType(null,"ebike"), new BigDecimal("5"));
         
+        allProviders = new ArrayList<Provider>();
+        
+        ProviderController providerController = new ProviderController(allProviders);
+        
+        
+        BookingController bookingController = new BookingController(null,providerController);
+        
         p1 = new Provider("Provider", null, null, null, null, 
                 bikes1, 
                 new DefaultValuationPolicy(), 
                 DPP,new BigDecimal("0.1"), 
-                null);
+                null,bookingController);
         
-        
+        providerController.registerNewProvider(p1);
         
     }
     

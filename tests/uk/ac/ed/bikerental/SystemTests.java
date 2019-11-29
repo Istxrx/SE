@@ -24,6 +24,7 @@ public class SystemTests {
     private Location location1,location2,location3;
     private ProviderController providerController;
     private BookingController bookingController;
+    private Collection<Provider> allProviders;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -31,6 +32,12 @@ public class SystemTests {
         DeliveryServiceFactory.setupMockDeliveryService();
         
         // Put your test setup here
+        allProviders = new ArrayList<Provider>();
+        
+        providerController = new ProviderController(allProviders);
+        
+        
+        bookingController = new BookingController(null,providerController);
         
         
         //PROVIDER 1
@@ -86,11 +93,11 @@ public class SystemTests {
         
         location1 = new Location("EH1 1LG", "Niddry Street 39");
         
-        p1 = new Provider("Provider", null, location1, null, null, 
+        p1 = new Provider("Provider", 1, location1, null, null, 
                 bikes1, 
                 new DefaultValuationPolicy(), 
                 DPP1,new BigDecimal("0.1"), 
-                null);
+                null, bookingController);
         
         //PROVIDER 1 END
         
@@ -123,14 +130,15 @@ public class SystemTests {
         DefaultPricingPolicy DPP2 = new DefaultPricingPolicy();
         DPP2.setDailyRentalPrice(new BikeType(null,"mountain"), new BigDecimal("10"));
         DPP2.setDailyRentalPrice(new BikeType(null,"ebike"), new BigDecimal("5"));
+        DPP2.setDailyRentalPrice(new BikeType(null,"road"), new BigDecimal("15"));
         
         location2 = new Location("EH7 5QP", "Albion Road 43");
         
-        p2 = new Provider("Provider", null, location2, null, null, 
+        p2 = new Provider("Provider", 2, location2, null, null, 
                 bikes1, 
                 new DefaultValuationPolicy(), 
                 DPP2, new BigDecimal("0.1"), 
-                null);
+                null,bookingController);
         
         //PROVIDER 2 END
         
@@ -171,19 +179,22 @@ public class SystemTests {
         DefaultPricingPolicy DPP3 = new DefaultPricingPolicy();
         DPP3.setDailyRentalPrice(new BikeType(null,"mountain"), new BigDecimal("10"));
         DPP3.setDailyRentalPrice(new BikeType(null,"ebike"), new BigDecimal("5"));
+        DPP2.setDailyRentalPrice(new BikeType(null,"ebike"), new BigDecimal("15"));
         
         location3 = new Location("AB1 5KL", "George Street 12");
         
-        p3 = new Provider("Provider", null, location3, null, null, 
+        p3 = new Provider("Provider", 3, location3, null, null, 
                 bikes1, 
                 new DefaultValuationPolicy(), 
                 DPP2,new BigDecimal("0.1"), 
-                null);
+                null,bookingController);
         
         //PROVIDER 3 END
    
         
-        //SEARCH CONTROLLER
+        providerController.registerNewProvider(p1);
+        providerController.registerNewProvider(p2);
+        providerController.registerNewProvider(p3);
         
         
         
@@ -198,11 +209,17 @@ public class SystemTests {
     @Test
     void testGetQuotes() {
         types1 = new HashMap<>();
-        types1.put(new BikeType(null,"mountain"), 2);
-        types1.put(new BikeType(null,"ebike"), 2);
+        types1.put(new BikeType(null,"road"), 1);
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
         Location location = new Location("EH7 5KL","Kings Street 5");
-        
+        Bike testBike= new Bike(
+                8,
+                LocalDate.of(2018, 1, 7), 
+                null,
+                new BikeType(new BigDecimal("100"),"road"), 
+                new HashSet<DateRange>(), 
+                "shop");
+        assertTrue(bookingController.getQuotes(types1, dateRange, location).size() == 1);
         
     }
 }
