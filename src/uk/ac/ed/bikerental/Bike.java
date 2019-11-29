@@ -51,6 +51,10 @@ public class Bike implements Deliverable{
         return this.owner;
     }
     
+    public String getStatus() {
+        return this.status;
+    }
+    
     public boolean isAvailableOn(DateRange dateRange) {
         for (DateRange dateRangeUnavailable : availability) {
             if (dateRange.overlaps(dateRangeUnavailable)) {
@@ -62,20 +66,20 @@ public class Bike implements Deliverable{
     
     public void updateStatus() {
         switch (this.status) {
-        case "in shop":
+        case "shop":
             this.status = "being delivered to customer";
             break;
         case "being delivered to customer":
             this.status = "with customer";
             break;    
         case "with customer":
-            this.status = "in shop";
+            this.status = "shop";
             break;
         case "with partner":
             this.status = "being delivered to owner";
             break;
         case "being delivered to owner":
-            this.status = "in shop";
+            this.status = "shop";
             break;
         }
     }
