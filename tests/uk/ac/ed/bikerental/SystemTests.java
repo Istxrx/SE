@@ -21,6 +21,7 @@ public class SystemTests {
     private ProviderController providerController;
     private BookingController bookingController;
     private Collection<Provider> allProviders;
+    private Customer customer;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -32,8 +33,12 @@ public class SystemTests {
         
         providerController = new ProviderController(allProviders);
         
+        Collection<Booking> allBookings = new ArrayList<>();
+        bookingController = new BookingController(allBookings,providerController);
         
-        bookingController = new BookingController(null,providerController);
+        Customer customer = new Customer(1);
+        
+
         
         
         //PROVIDER 1
@@ -208,8 +213,28 @@ public class SystemTests {
         types1.put(new BikeType(null,"road"), 1);
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
         Location location = new Location("EH7 5KL","Kings Street 5");
+        Bike testBike = new Bike(
+                8,
+                LocalDate.of(2018, 1, 7), 
+                null,
+                new BikeType(new BigDecimal("100"),"road"), 
+                new HashSet<DateRange>(), 
+                "shop");
         
+       
+        Collection<Bike> testBikeSet = new ArrayList<>();
+        testBikeSet.add(testBike);
         assertEquals(bookingController.getQuotes(types1, dateRange, location).size(),1);
+       
+        Quote testQuote =
+                new Quote(p2, testBikeSet,
+                        new BigDecimal(45),null,dateRange);
+        
+        //assertTrue(bookingController.getQuotes(types1, dateRange, location).contains(testQuote));
+        
+        bookingController.bookQuote(testQuote, customer, false);
+        
+        assertEquals(bookingController.getQuotes(types1, dateRange, location).size(),0);
         
     }
 }
