@@ -1,6 +1,7 @@
 package uk.ac.ed.bikerental;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 
@@ -10,10 +11,10 @@ public class Bike implements Deliverable{
     private LocalDate age;
     private Provider owner;
     private BikeType type;
-    private HashSet<DateRange> availability;
+    private Collection<DateRange> availability;
     private String status;
     
-    public Bike(Integer ID, LocalDate age, Provider owner, BikeType type, HashSet<DateRange> availability, 
+    public Bike(Integer ID, LocalDate age, Provider owner, BikeType type, Collection<DateRange> availability, 
             String status) {
         this.ID = ID;
         this.age = age;
@@ -77,6 +78,10 @@ public class Bike implements Deliverable{
             this.status = "in shop";
             break;
         }
+    }
+    
+    public void makeUnavailable(DateRange dateRange) {
+        this.availability.add(dateRange);
     }
     
     public void updateStatus(String newStatus) {

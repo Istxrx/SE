@@ -42,8 +42,6 @@ public class BookingController {
         addBooking(new Booking(customer, quote.getProvider(), this.IdCounter, quote.getBikes(), 
                 quote.getDateRange(), quote.getPrice(), quote.getDeposit(), isDelivery));
         
-        ++this.IdCounter;
-        
         if (isDelivery) {
             DeliveryService deliveryService = quote.getProvider().getDeliveryService();
             
@@ -53,9 +51,13 @@ public class BookingController {
                         quote.getProvider().getAddress(),
                         customer.getAddress(),
                         quote.getDateRange().getStart());
+                
+                bike.makeUnavailable(quote.getDateRange());
             }
         }
+        Invoice summary = new Invoice(IdCounter,quote);
+        ++this.IdCounter;
         
-        return null;
+        return summary;
     }
 }
