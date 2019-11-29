@@ -64,9 +64,14 @@ public class BookingController {
                         customer.getAddress(),
                         quote.getDateRange().getStart());
                 
-                bike.makeUnavailable(quote.getDateRange());
             }
         }
+        
+        for (Bike bike : quote.getBikes()) {
+            
+            bike.makeUnavailable(quote.getDateRange());
+        }
+        
         Invoice summary = new Invoice(IdCounter,quote);
         ++this.IdCounter;
         

@@ -22,6 +22,7 @@ public class SystemTests {
     private BookingController bookingController;
     private Collection<Provider> allProviders;
     private Customer customer;
+    private Bike b1;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -112,13 +113,15 @@ public class SystemTests {
                 new BikeType(new BigDecimal("100"),"mountain"), 
                 new HashSet<DateRange>(), 
                 "shop"));
-        bikes2.add(new Bike(
+        
+        b1 = new Bike(
                 8,
                 LocalDate.of(2018, 1, 7), 
                 null,
                 new BikeType(new BigDecimal("100"),"road"), 
                 new HashSet<DateRange>(), 
-                "shop"));
+                "shop");
+        bikes2.add(b1);
         bikes2.add(new Bike(
                 9,
                 LocalDate.of(2018, 1, 7), 
@@ -196,13 +199,7 @@ public class SystemTests {
         providerController.registerNewProvider(p1);
         providerController.registerNewProvider(p2);
         providerController.registerNewProvider(p3);
-        
-        
-        
-        
-        
-        
-        
+       
     }
     
     // TODO: Write system tests covering the three main use cases
@@ -213,28 +210,28 @@ public class SystemTests {
         types1.put(new BikeType(null,"road"), 1);
         DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
         Location location = new Location("EH7 5KL","Kings Street 5");
-        Bike testBike = new Bike(
-                8,
-                LocalDate.of(2018, 1, 7), 
-                null,
-                new BikeType(new BigDecimal("100"),"road"), 
-                new HashSet<DateRange>(), 
-                "shop");
+     
+        Collection<Bike> testBikeSet = new HashSet<>();
+        testBikeSet.add(b1);
         
+        //2 providers with road type but only 1 in Edinburgh with one road bike
+        assertEquals(1,bookingController.getQuotes(types1, dateRange, location).size());
        
-        Collection<Bike> testBikeSet = new ArrayList<>();
-        testBikeSet.add(testBike);
-        assertEquals(bookingController.getQuotes(types1, dateRange, location).size(),1);
+        Quote testQuote = new Quote(p2, testBikeSet,new BigDecimal(45),null,dateRange);
        
-        Quote testQuote =
-                new Quote(p2, testBikeSet,
-                        new BigDecimal(45),null,dateRange);
-        
-        //assertTrue(bookingController.getQuotes(types1, dateRange, location).contains(testQuote));
-        
+        //the bike gets booked
         bookingController.bookQuote(testQuote, customer, false);
         
-        assertEquals(bookingController.getQuotes(types1, dateRange, location).size(),0);
+        //when bike is booked it is no longer a result of search
+        assertEquals(0,bookingController.getQuotes(types1, dateRange, location).size());  
+    }
+    
+    @Test
+    void testGetQuotes2() {
+        types1 = new HashMap<>();
+        types1.put(new BikeType(null,"mountain"), 2);
+        
         
     }
+    
 }
