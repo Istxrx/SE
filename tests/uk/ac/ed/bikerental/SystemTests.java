@@ -22,7 +22,6 @@ public class SystemTests {
     private Collection<Bike> bikes1, bikes2, bikes3;
     private Hashtable<BikeType, Integer> types1,types2,types3;
     private Location location1,location2,location3;
-    private SearchController searchController;
     private ProviderController providerController;
     private BookingController bookingController;
 
@@ -89,8 +88,8 @@ public class SystemTests {
         
         p1 = new Provider("Provider", null, location1, null, null, 
                 bikes1, 
-                new DefaultValuationPolicy(new BigDecimal("0.1")), 
-                DPP1, 
+                new DefaultValuationPolicy(), 
+                DPP1,new BigDecimal("0.1"), 
                 null);
         
         //PROVIDER 1 END
@@ -129,8 +128,8 @@ public class SystemTests {
         
         p2 = new Provider("Provider", null, location2, null, null, 
                 bikes1, 
-                new DefaultValuationPolicy(new BigDecimal("0.1")), 
-                DPP2, 
+                new DefaultValuationPolicy(), 
+                DPP2, new BigDecimal("0.1"), 
                 null);
         
         //PROVIDER 2 END
@@ -177,8 +176,8 @@ public class SystemTests {
         
         p3 = new Provider("Provider", null, location3, null, null, 
                 bikes1, 
-                new DefaultValuationPolicy(new BigDecimal("0.1")), 
-                DPP2, 
+                new DefaultValuationPolicy(), 
+                DPP2,new BigDecimal("0.1"), 
                 null);
         
         //PROVIDER 3 END

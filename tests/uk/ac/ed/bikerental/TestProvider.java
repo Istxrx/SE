@@ -74,8 +74,8 @@ public class TestProvider {
         
         p1 = new Provider("Provider", null, null, null, null, 
                 bikes1, 
-                new DefaultValuationPolicy(new BigDecimal("0.1")), 
-                DPP, 
+                new DefaultValuationPolicy(), 
+                DPP,new BigDecimal("0.1"), 
                 null);
         
         

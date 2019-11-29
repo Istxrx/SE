@@ -29,9 +29,9 @@ public class ValuationPolicyTests {
                 new BikeType(new BigDecimal("100"),"mountain"), 
                 null, 
                 "shop");
-        DVP = new DefaultValuationPolicy(new BigDecimal("0.1"));
-        LD = new LinearDepreciation(null,new BigDecimal("0.1"));
-        DDBD = new DoubleDecliningBalanceDepreciation(null,new BigDecimal("0.1"));
+        DVP = new DefaultValuationPolicy();
+        LD = new LinearDepreciation(new BigDecimal("0.1"));
+        DDBD = new DoubleDecliningBalanceDepreciation(new BigDecimal("0.1"));
     }
     
     // TODO: Write tests for valuation policies
