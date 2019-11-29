@@ -129,6 +129,13 @@ public class SystemTests {
                 new BikeType(new BigDecimal("100"),"ebike"), 
                 new HashSet<DateRange>(), 
                 "shop"));
+        bikes2.add(new Bike(
+                88,
+                LocalDate.of(2018, 1, 7), 
+                null,
+                new BikeType(new BigDecimal("100"),"mountain"), 
+                new HashSet<DateRange>(), 
+                "shop"));
              
         
         DefaultPricingPolicy DPP2 = new DefaultPricingPolicy();
@@ -230,7 +237,14 @@ public class SystemTests {
     void testGetQuotes2() {
         types1 = new HashMap<>();
         types1.put(new BikeType(null,"mountain"), 2);
+        types1.put(new BikeType(null,"ebike"), 1);
+        DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
+        Location location = new Location("EH7 5KL","Kings Street 5");
         
+        // checks if system returns all possible quotes, 
+        // including all possible combinations of available bikes
+        // 1 for p2 and 9 for p1 , 9+1=10
+        assertEquals(10,bookingController.getQuotes(types1, dateRange, location).size());
         
     }
     
