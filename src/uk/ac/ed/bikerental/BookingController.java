@@ -43,8 +43,8 @@ public class BookingController {
         ++this.IdCounter;
         
         if (isDelivery) {
-            
             DeliveryService deliveryService = quote.getProvider().getDeliveryService();
+            
             for (Bike bike : quote.getBikes()) {
                 deliveryService.scheduleDelivery(
                         bike,
