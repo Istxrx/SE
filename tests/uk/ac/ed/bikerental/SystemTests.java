@@ -95,7 +95,7 @@ public class SystemTests {
         
         location1 = new Location("EH1 1LG", "Niddry Street 39");
         
-        p1 = new Provider("Provider", 1, location1, null, null, 
+        p1 = new Provider("Provider", 1, location1, null, new HashSet<>(), 
                 bikes1, 
                 new DefaultValuationPolicy(), 
                 DPP1,new BigDecimal("0.1"), 
@@ -147,7 +147,7 @@ public class SystemTests {
         
         location2 = new Location("EH7 5QP", "Albion Road 43");
         
-        p2 = new Provider("Provider", 2, location2, null, null, 
+        p2 = new Provider("Provider", 2, location2, null, new HashSet<>(), 
                 bikes2, 
                 new DefaultValuationPolicy(), 
                 DPP2, new BigDecimal("0.1"), 
@@ -305,9 +305,86 @@ public class SystemTests {
         for (Bike bike : testBikeSet) {
             assertEquals("with customer",bike.getStatus());
         }
-        
-        
-        
     }
     
+    @Test
+    void testReturnBikesToOriginalProvider() {
+        DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
+        Collection<Bike> testBikeSet = new HashSet<>();
+        testBikeSet.add(b1);
+        testBikeSet.add(b2);
+        Quote testQuote = new Quote(p2, testBikeSet,new BigDecimal(45),null,dateRange);
+        
+        customer = new Customer(0);
+        customer.provideDetails("John", new Location("EH1 1LG","Niddry street 39"), "123456789");
+        
+        //the bike gets booked with delivery
+        Invoice summary = bookingController.bookQuote(testQuote, customer, false);
+        
+        Booking booking = bookingController.getBookingByID(summary.getUniqueID());
+        
+        //customer picks them up
+        p2.registerPickup(testBikeSet);
+        
+        for (Bike bike : testBikeSet) {
+            assertEquals("with customer",bike.getStatus());
+        }
+        // wants to return them in person in shop with ID of booking
+        
+        p2.acceptReturn(summary.getUniqueID());
+        
+        for (Bike bike : testBikeSet) {
+            assertEquals("shop",bike.getStatus());
+        }
+    }
+    
+    @Test
+    void testReturnBikesToPartner() {
+        DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
+        Collection<Bike> testBikeSet = new HashSet<>();
+        testBikeSet.add(b1);
+        testBikeSet.add(b2);
+        Quote testQuote = new Quote(p2, testBikeSet,new BigDecimal(45),null,dateRange);
+        
+        customer = new Customer(0);
+        customer.provideDetails("John", new Location("EH1 1LG","Niddry street 39"), "123456789");
+        
+        //the bike gets booked with delivery
+        Invoice summary = bookingController.bookQuote(testQuote, customer, false);
+        
+        Booking booking = bookingController.getBookingByID(summary.getUniqueID());
+        
+        providerController.registerPartnership(p1, p2);
+        
+        //customer picks them up
+        p2.registerPickup(testBikeSet);
+        
+        for (Bike bike : testBikeSet) {
+            assertEquals("with customer",bike.getStatus());
+        }
+        // wants to return them in person in shop with ID of booking
+        // return to partner
+        p1.acceptReturn(summary.getUniqueID());
+        
+        for (Bike bike : testBikeSet) {
+            assertEquals("with partner",bike.getStatus());
+        }
+        
+        //delivery to original provider
+        
+        ((MockDeliveryService)DeliveryServiceFactory.getDeliveryService())
+        .carryOutPickups(LocalDate.now());
+    
+        for (Bike bike : testBikeSet) {
+        assertEquals("being delivered to owner",bike.getStatus());
+        }
+    
+        ((MockDeliveryService)DeliveryServiceFactory.getDeliveryService())
+        .carryOutDropoffs();
+    
+        for (Bike bike : testBikeSet) {
+        assertEquals("shop",bike.getStatus());
+        }
+        
+    }
 }
