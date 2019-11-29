@@ -293,8 +293,19 @@ public class SystemTests {
             assertEquals("shop",bike.getStatus());
         }
         
-        DeliveryServiceFactory.getDeliveryService().carryOutPickups();
+        ((MockDeliveryService)DeliveryServiceFactory.getDeliveryService())
+            .carryOutPickups(dateRange.getStart());
         
+        for (Bike bike : testBikeSet) {
+            assertEquals("being delivered to customer",bike.getStatus());
+        }
+        
+        ((MockDeliveryService)DeliveryServiceFactory.getDeliveryService())
+            .carryOutDropoffs();
+        
+        for (Bike bike : testBikeSet) {
+            assertEquals("with customer",bike.getStatus());
+        }
         
     }
     
