@@ -136,7 +136,7 @@ public class SystemTests {
         location2 = new Location("EH7 5QP", "Albion Road 43");
         
         p2 = new Provider("Provider", 2, location2, null, null, 
-                bikes1, 
+                bikes2, 
                 new DefaultValuationPolicy(), 
                 DPP2, new BigDecimal("0.1"), 
                 null,bookingController);
@@ -185,7 +185,7 @@ public class SystemTests {
         location3 = new Location("AB1 5KL", "George Street 12");
         
         p3 = new Provider("Provider", 3, location3, null, null, 
-                bikes1, 
+                bikes3, 
                 new DefaultValuationPolicy(), 
                 DPP2,new BigDecimal("0.1"), 
                 null,bookingController);
