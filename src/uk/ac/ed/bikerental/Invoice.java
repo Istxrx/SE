@@ -21,5 +21,9 @@ public class Invoice {
         this.dateRange = quote.getDateRange();
     }
     
+    public Integer getUniqueID() {
+        return uniqueID;
+    }
+    
 
 }

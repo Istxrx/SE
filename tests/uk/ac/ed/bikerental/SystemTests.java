@@ -234,4 +234,24 @@ public class SystemTests {
         
     }
     
+    @Test
+    void testBookQuote() {
+     
+        DateRange dateRange = new DateRange(LocalDate.of(2019, 1, 7),LocalDate.of(2019, 1, 10));
+        Location location = new Location("EH7 5KL","Kings Street 5");
+        Collection<Bike> testBikeSet = new HashSet<>();
+        testBikeSet.add(b1);
+        Quote testQuote = new Quote(p2, testBikeSet,new BigDecimal(45),null,dateRange);
+        
+        //the bike gets booked
+        
+        assertTrue(
+        bookingController.getBookingByID
+        (bookingController.bookQuote(testQuote, customer, false)
+                .getUniqueID()).getBikes().containsAll(testBikeSet));
+        
+        
+        
+    }
+    
 }
