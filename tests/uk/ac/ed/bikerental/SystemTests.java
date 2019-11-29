@@ -258,6 +258,7 @@ public class SystemTests {
         Quote testQuote = new Quote(p2, testBikeSet,new BigDecimal(45),null,dateRange);
         
         //the bike gets booked
+        bookingController.bookQuote(testQuote, customer, false);
         
         assertTrue(
         bookingController.getBookingByID
