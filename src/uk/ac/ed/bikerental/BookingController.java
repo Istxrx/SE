@@ -24,9 +24,11 @@ public class BookingController {
             Location location) {
         
         Collection<Quote> quotes = new HashSet<>();
+        Collection<Provider> providers = this.providerController.getAllProvidersInTheArea(location);
         
-        for (Provider provider : this.providerController.getAllProvidersInTheArea(location)) {
-            quotes.addAll(provider.produceOffer(types, dateRange));
+        for (Provider provider : providers) {
+            Collection<Quote> quotesFromProvider = provider.produceOffer(types, dateRange);
+            quotes.addAll(quotesFromProvider);
         }
         
         return quotes;
