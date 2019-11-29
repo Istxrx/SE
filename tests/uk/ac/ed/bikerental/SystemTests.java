@@ -260,9 +260,9 @@ public class SystemTests {
         //the bike gets booked
         bookingController.bookQuote(testQuote, customer, false);
         
+        // the invoice contains the unique ID of booking, which is used to retrieve it from system
         assertTrue(
-        bookingController.getBookingByID
-        (bookingController.bookQuote(testQuote, customer, false)
+        bookingController.getBookingByID(bookingController.bookQuote(testQuote, customer, false)
                 .getUniqueID()).getBikes().containsAll(testBikeSet));
         
         
