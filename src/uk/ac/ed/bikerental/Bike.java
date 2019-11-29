@@ -34,6 +34,10 @@ public class Bike implements Deliverable{
         // hashCode method allowing use in collections
         return Objects.hash(this.ID);
     }
+    
+    public void setOwner(Provider provider) {
+        this.owner = provider;
+    }
      
     public BikeType getType() {
         return this.type;

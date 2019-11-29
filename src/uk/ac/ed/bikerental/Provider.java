@@ -44,6 +44,10 @@ public class Provider {
         this.depositRate = depositRate;
         this.deliveryService = deliveryService;
         this.bookingController = bookingController;
+        
+        for (Bike bike : bikes) {
+            bike.setOwner(this);
+        }
     }
 
     @Override
@@ -173,6 +177,13 @@ public class Provider {
                 deliveryService.scheduleDelivery(bike, this.address, bike.getOwner().getAddress(),
                         LocalDate.now());
             }
+        }
+    }
+    
+    public void registerPickup(Collection<Bike> bikes) {
+        for (Bike bike : bikes) {
+            bike.onPickup();
+            bike.onDropoff();
         }
     }
 
