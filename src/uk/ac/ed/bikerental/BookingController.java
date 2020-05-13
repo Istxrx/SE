@@ -8,7 +8,7 @@ public class BookingController {
 
     private Collection<Booking>allBookings;
     private ProviderController providerController;
-    // "temporary development measure" to ensure uniqueness of IDs
+    // "temporary measure" to ensure uniqueness of IDs
     private Integer IdCounter;
     
     
